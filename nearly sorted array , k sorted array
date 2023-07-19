@@ -1,39 +1,77 @@
-#include <iostream>
-#include <vector>
-#include <queue>
-
+//{ Driver Code Starts
+#include<bits/stdc++.h>
 using namespace std;
 
-int findKthSmallest(int arr[], int num, int k)
-{
-    // Create a max heap
-    priority_queue<int> maxHeap;//by default largest element top pe rahega
 
-    // Insert the first k elements into the max heap
+// } Driver Code Ends
+class Solution
+{
+    public:
+    
+    //Function to return the sorted array.
+   vector<int> nearlySorted(int arr[], int num, int k)
+{
+    vector<int> h; // Declare the vector here instead
+
+    priority_queue<int, vector<int>, greater<int>> p;
     for (int i = 0; i < num; i++)
     {
-        maxHeap.push(arr[i]);
+        p.push(arr[i]);
+        if (p.size() > k)
+        {
+            int l = p.top();
         
-        if(maxHeap.size()>k)//iska matlab hai ki muje 3rd smallest nikalna hai to sirf three element hi sort karenge so that complexity n ki jagah k times ho
-        maxHeap.pop();
+            p.pop();
+            h.push_back(l);
+        }
     }
 
-    
-    return maxHeap.top();// kyunkii unn 3 elements me bigger one return karna hai jo ki top par hoga max heap me
+    while (!p.empty())
+    {
+        int l = p.top();
+        p.pop();
+        h.push_back(l);
+    }
+
+    return h;
 }
+
+};
+
+//{ Driver Code Starts.
 
 int main()
-{
-    int num = 7;
-    int k = 3;
-    int arr[] = {6, 5, 3, 2, 8, 10, 9};
-    int kthSmallest = findKthSmallest(arr, num, k);
-
-    cout << "The " << k << "th smallest element is: " << kthSmallest << endl;
-
-    return 0;
+ {
+	int T;
+	cin>> T;
+	
+	while (T--)
+	{
+	    int num, K;
+	    cin>>num>>K;
+	    
+	    int arr[num];
+	    for(int i = 0; i<num; ++i){
+	        cin>>arr[i];
+	    }
+	    Solution ob;
+	    vector <int> res = ob.nearlySorted(arr, num, K);
+	    for (int i = 0; i < res.size (); i++)
+	        cout << res[i] << " ";
+	        
+	    cout<<endl;
+	}
+	
+	return 0;
 }
 
+//Given an array of n elements, where each element is at most k away from its target position, you need to sort the array optimally.
 
-output-
-The 3th smallest element is: 5
+Example 1:
+
+Input:
+n = 7, k = 3
+arr[] = {6,5,3,2,8,10,9}
+Output: 2 3 5 6 8 9 10
+Explanation: The sorted array will be
+2 3 5 6 8 9 10
