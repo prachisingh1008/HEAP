@@ -1,0 +1,73 @@
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution{
+    public:
+    long long findKthSmallest(long long arr[], long long num, long long k)
+{
+    // Create a max heap
+    priority_queue<int> maxHeap;//by default largest element top pe rahega
+
+    // Insert the first k elements into the max heap
+    for (int i = 0; i < num; i++)
+    {
+        maxHeap.push(arr[i]);
+        
+        if(maxHeap.size()>k)//iska matlab hai ki muje 3rd smallest nikalna hai to sirf three element hi sort karenge so that complexity n ki jagah k times ho
+        maxHeap.pop();
+    }
+
+    
+    return maxHeap.top();// kyunkii unn 3 elements me bigger one return karna hai jo ki top par hoga max heap me
+}
+    long long sumBetweenTwoKth( long long A[], long long N, long long K1, long long K2)
+    {
+        // Your code goes here
+        long long a=findKthSmallest(A,N,K1);
+        long long b=findKthSmallest(A,N,K2);
+        long long sum=0;
+        for(long long i=0;i<N;i++)
+        {
+            if(A[i]<b&&A[i]>a)
+            sum+=A[i];
+        }
+        return sum;
+    }
+};
+
+//{ Driver Code Starts.
+int main()
+ {
+    long long t;
+    cin>>t;
+    while(t--)
+    {
+        long long n, k;
+        cin>>n;
+        long long a[n+5];
+        for(int i =0;i<n;i++)
+            cin >> a[i];
+        
+        long long k1, k2;
+        cin >> k1 >> k2;
+        Solution ob;
+        cout << ob.sumBetweenTwoKth(a, n, k1, k2) << endl;
+        
+    }
+	return 0;
+}
+
+
+Input:
+N  = 7
+A[] = {20, 8, 22, 4, 12, 10, 14}
+K1 = 3, K2 = 6
+Output:
+26
+Explanation:
+3rd smallest element is 10
+6th smallest element is 20
+Element between 10 and 20 
+12,14. Their sum = 26.
