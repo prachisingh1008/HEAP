@@ -1,0 +1,46 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+//User function template for C++
+
+class Solution {
+  public:
+    string isKSortedArray(int arr[], int n, int k)
+    {
+         vector<pair<int, int>> aux;
+   
+  for(int i=0;i<n;i++){
+    aux.push_back({arr[i], i}); //  pushing the elements and index of arr to aux
+  }
+   
+  // sorting the aux array
+  sort(aux.begin(), aux.end());
+   
+ 
+  for(auto i=0;i<n;i++){
+    if(abs(i-aux[i].second)>k) return "No";
+     
+  }
+  
+  return "Yes";
+    }
+};
+
+Input:
+N=6
+arr[] = {3, 2, 1, 5, 6, 4} 
+K = 2
+Output: Yes
+Explanation:
+Every element is at most 2 distance 
+away from its target position in the
+sorted array.  
+Input:
+N=7
+arr[] = {13, 8, 10, 7, 15, 14, 12}
+K = 1
+Output: No
+
+
